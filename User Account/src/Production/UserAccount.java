@@ -5,11 +5,15 @@ public class UserAccount {
     private String userName;
     private String password;
     private String name;
+    private String email;
+    private String securityQuestion;
 
-    public UserAccount(String userName, String password, String name) {
+    public UserAccount(String userName, String password, String name, String email, String securityQuestion) {
         this.userName = userName;
         this.password = password;
         this.name = name;
+        this.email = email;
+        this.securityQuestion = securityQuestion;
     }
 
     public String getName() {
@@ -34,6 +38,21 @@ public class UserAccount {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public String getSecurityQuestion(){
+        return securityQuestion;
+    }
+    public void setSecurityQuestion(String securityQuestion){
+        this.securityQuestion = securityQuestion;
     }
 
     public boolean isValidCredential(String userName, String password) {

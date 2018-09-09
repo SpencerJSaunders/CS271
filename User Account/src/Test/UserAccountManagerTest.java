@@ -12,7 +12,8 @@ public class UserAccountManagerTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		userAccountManager = new UserAccountManager();
-		userAccountManager.addUserAccount("admin", "123456", "Kevin Brown");
+		userAccountManager.addUserAccount("admin", "123456", "Kevin Brown",
+				"alexesplin1@u.boisestate.edu", "Chicken");
 	}
 
 	public void testExistingUserAccount() {

@@ -33,7 +33,7 @@ public class UserAccountGUI
 		JFrame frame = new JFrame("UserAccount");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(new UserAccountGUIPanel());
-		frame.setPreferredSize(new Dimension(300, 300));
+		frame.setPreferredSize(new Dimension(600, 600));
 		frame.pack();
 		frame.setVisible(true);
 	}

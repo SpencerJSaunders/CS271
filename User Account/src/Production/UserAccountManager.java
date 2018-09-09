@@ -10,9 +10,9 @@ public class UserAccountManager {
         userAccounts = new ArrayList<UserAccount>();
     }
     
-    public void addUserAccount(String userName, String password, String name){
-    	if (!doesUserNameExist(userName))
-    		userAccounts.add(new UserAccount(userName,password, name));
+    public void addUserAccount(String userName, String password, String name, String email, String securityQuestion){
+    	if (!doesUserNameExist(userName) && validPassword(password) && validEmail(email))
+    		userAccounts.add(new UserAccount(userName,password, name, email, securityQuestion));
     }
     
     public boolean doesAccountExist(String userName, String password) {
@@ -27,5 +27,34 @@ public class UserAccountManager {
     		if(userAccount.matchUserName(userName))   
     			return true;   
        return false;
+    }
+
+    public boolean validPassword(String password){
+        boolean valid = true;
+        if (password.length() <= 0 || password.length() > 20) {
+            valid = false;
+        }
+        return valid;
+
+    }
+    public boolean validEmail(String email){
+        boolean valid = true;
+        if(email.length() <= 0){
+            valid = false;
+        }
+        if(!email.contains("@")){
+            valid = false;
+        }
+
+
+            return valid;
+    }
+
+    public boolean validSecurityQuestion(String securityQuestion){
+        boolean valid = true;
+        if(securityQuestion.length() <= 0){
+            valid = false;
+        }
+        return valid;
     }
 }
