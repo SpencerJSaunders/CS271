@@ -6,6 +6,10 @@ public class UserAccountManager {
 	
     private ArrayList<UserAccount> userAccounts;
     
+
+    /**
+     * Cosntructor which creates a new ArrayList of UserAccount objects
+     */
     public UserAccountManager() {
         userAccounts = new ArrayList<UserAccount>();
     }
