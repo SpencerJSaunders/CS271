@@ -22,14 +22,12 @@ import Production.UserAccountManager;
 
 public class UserAccountGUIPanel extends JPanel
 {
-	
-	/**
-	 * 
-	 */
+	//variables initialized
 	private static final long serialVersionUID = 1L;
 	private UserAccountManager accountManager;
 	private JButton loginButton;
 	private JButton signupButton;
+	private JButton forgotPasswordButton; 
 	private JLabel usernameExists;
 	private JLabel invalidPassword;
 	private JLabel invalidEmail;
@@ -43,22 +41,32 @@ public class UserAccountGUIPanel extends JPanel
 	public UserAccountGUIPanel()
 	{
 		
+		//stores all UserAccounts
 		accountManager = new UserAccountManager();
 		
 		setLayout(new BorderLayout());
 		loginSignupPanel = new JPanel();
 		add(loginSignupPanel, BorderLayout.NORTH);
 		
+		//login button added
 		loginButton = new JButton("Login");
 		JButtonListener listener = new JButtonListener();
 		loginButton.addActionListener(listener);
+		
+		//sign up button added
 		signupButton = new JButton("Sign Up");
 		listener = new JButtonListener();
 		signupButton.addActionListener(listener);
 		
+		forgotPasswordButton = new JButton("Forgot Password");
+		listener = new JButtonListener();
+		forgotPasswordButton.addActionListener(listener);
+		
+		//add buttons to the loginSignupPanel JPanel
 		loginSignupPanel.setLayout(new BoxLayout(loginSignupPanel, BoxLayout.X_AXIS));
 		loginSignupPanel.add(loginButton);
 		loginSignupPanel.add(signupButton);
+		loginSignupPanel.add(forgotPasswordButton);
 	
 	}
 	
@@ -75,8 +83,51 @@ public class UserAccountGUIPanel extends JPanel
 		public void actionPerformed(ActionEvent event) 
 		{
 			
+			//if user clicks on the login button, open a new dialogPanel
+			
+			if(event.getSource() == forgotPasswordButton)
+			{
+				JTextField usernameField = new JTextField(1);
+				JTextField securityField = new JTextField(5);
+				JPanel dialogPanel = new JPanel();
+				dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
+				dialogPanel.add(new JLabel("Enter your username: "));
+				dialogPanel.add(usernameField);
+				dialogPanel.add(new JLabel("Enter your security question: "));
+				dialogPanel.add(securityField);
+				
+				int result = JOptionPane.showConfirmDialog(null, dialogPanel, 
+		                 "Recover your Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				
+				if(result == JOptionPane.OK_OPTION)
+				{
+					if(accountManager.passwordRecovery(usernameField.getText(), securityField.getText()) != null)
+					{
+						statusPanel = new JPanel();
+						statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
+						invalidSecurityQuestion = new JLabel(accountManager.passwordRecovery(usernameField.getText(), securityField.getText()));
+						statusPanel.add(invalidSecurityQuestion);
+						JOptionPane.showConfirmDialog(null, statusPanel,
+								"Password Recovered!", JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					}
+					else
+					{
+						statusPanel = new JPanel();
+	         			statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
+	         			usernameExists = new JLabel("Incorret information entered! Please try again!");
+	         			statusPanel.add(usernameExists);
+	         			JOptionPane.showConfirmDialog(null, statusPanel, 
+	         					"Incorrect Info", JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+				
+				
+				
+				
+			}
 			if(event.getSource() == loginButton)
 			{
+				
 				JTextField usernameField = new JTextField(1);
 				JTextField passwordField = new JTextField(5);
 				JPanel dialogPanel = new JPanel();
@@ -123,6 +174,8 @@ public class UserAccountGUIPanel extends JPanel
 					
 				}
 			}
+			
+			
 			
 			if(event.getSource() == signupButton)
 			{

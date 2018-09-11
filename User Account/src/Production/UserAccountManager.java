@@ -28,6 +28,18 @@ public class UserAccountManager {
     			return true;   
        return false;
     }
+    
+    public String passwordRecovery(String userName, String securityQuestion)
+    {
+    	for(UserAccount userAccount: userAccounts)
+    	{
+    		if(userAccount.matchUserName(userName) && userAccount.getSecurityQuestion().equals(securityQuestion))
+    		{
+    			return userAccount.getPassword();
+    		}
+    	}
+    		return null;
+    }
 
     public boolean validPassword(String password){
         boolean valid = true;
