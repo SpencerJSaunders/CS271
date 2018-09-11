@@ -1,13 +1,18 @@
 package Production;
 import java.util.ArrayList;
 
-
+/**
+ *
+ * Class to manage all the user accounts. Has a data structure to store the user account objects. Also has methods to
+ * check that the accounts are valid.
+ * @author Team 1
+ */
 public class UserAccountManager {
 	
     private ArrayList<UserAccount> userAccounts;
     
     public UserAccountManager() {
-        userAccounts = new ArrayList<UserAccount>();
+        userAccounts = new ArrayList<>();
     }
     
     public void addUserAccount(String userName, String password, String name, String email, String securityQuestion){
