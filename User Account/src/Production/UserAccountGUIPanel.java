@@ -117,7 +117,7 @@ public class UserAccountGUIPanel extends JPanel
 						JOptionPane.showConfirmDialog(null, statusPanel,
 								"Enter your new password", JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 						
-						if(newPassword.getText().equals(newPassword.getText()))
+						if(newPassword.getText().equals(newPasswordConfirm.getText()))
 						{
 							statusPanel = new JPanel();
 							statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
