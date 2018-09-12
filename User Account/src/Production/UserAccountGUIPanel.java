@@ -103,12 +103,39 @@ public class UserAccountGUIPanel extends JPanel
 				{
 					if(accountManager.passwordRecovery(usernameField.getText(), securityField.getText()) != null)
 					{
+						JTextField newPassword = new JTextField(1);
+						JTextField newPasswordConfirm = new JTextField(5);
 						statusPanel = new JPanel();
 						statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
-						invalidSecurityQuestion = new JLabel(accountManager.passwordRecovery(usernameField.getText(), securityField.getText()));
-						statusPanel.add(invalidSecurityQuestion);
+						
+						statusPanel.add(new JLabel("Enter your new password: "));
+						statusPanel.add(newPassword);
+						statusPanel.add(new JLabel("Enter your new password again for confirmation: "));
+						statusPanel.add(newPasswordConfirm);
+						int index = accountManager.getIndexOfUser(usernameField.getText());
+						
 						JOptionPane.showConfirmDialog(null, statusPanel,
-								"Password Recovered!", JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+								"Enter your new password", JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						
+						if(newPassword.getText().equals(newPassword.getText()))
+						{
+							statusPanel = new JPanel();
+							statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
+							statusPanel.add(new JLabel("Password updated"));
+							accountManager.updatePassword(index, newPassword.getText());
+							JOptionPane.showConfirmDialog(null, statusPanel, 
+		         					"Success", JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						}
+						else
+						{
+							statusPanel = new JPanel();
+							statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
+							statusPanel.add(new JLabel("New Passwords Don't Match"));
+							statusPanel.add(new JLabel("Passwords Don't Match"));
+
+							JOptionPane.showConfirmDialog(null, statusPanel, 
+		         					"Success", JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						}
 					}
 					else
 					{

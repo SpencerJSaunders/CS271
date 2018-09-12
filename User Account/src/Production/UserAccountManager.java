@@ -34,6 +34,11 @@ public class UserAccountManager {
        return false;
     }
     
+    public void updatePassword(int i, String stringy)
+    {
+    	userAccounts.get(i).setPassword(stringy);
+    }
+    
     public String passwordRecovery(String userName, String securityQuestion)
     {
     	for(UserAccount userAccount: userAccounts)
@@ -53,6 +58,19 @@ public class UserAccountManager {
         }
         return valid;
 
+    }
+    
+    public int getIndexOfUser(String userName)
+    {
+    	for(int i = 0; i < userAccounts.size(); i++)
+    	{
+    		if(userAccounts.get(i).getUserName().equals(userName))
+    		{
+    			return i;
+    		}
+    	}
+    	
+    	return -1;
     }
     public boolean validEmail(String email){
         boolean valid = true;
