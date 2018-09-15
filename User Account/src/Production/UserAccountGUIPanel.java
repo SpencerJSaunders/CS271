@@ -28,6 +28,7 @@ public class UserAccountGUIPanel extends JPanel
 	private JButton loginButton;
 	private JButton signupButton;
 	private JButton forgotPasswordButton; 
+	private JButton forgotUsernameButton;
 	private JLabel usernameExists;
 	private JLabel invalidPassword;
 	private JLabel invalidEmail;
@@ -62,11 +63,16 @@ public class UserAccountGUIPanel extends JPanel
 		listener = new JButtonListener();
 		forgotPasswordButton.addActionListener(listener);
 		
+		forgotUsernameButton = new JButton("Forgot Username");
+		listener = new JButtonListener();
+		forgotUsernameButton.addActionListener(listener);
+		
 		//add buttons to the loginSignupPanel JPanel
 		loginSignupPanel.setLayout(new BoxLayout(loginSignupPanel, BoxLayout.X_AXIS));
 		loginSignupPanel.add(loginButton);
 		loginSignupPanel.add(signupButton);
 		loginSignupPanel.add(forgotPasswordButton);
+		loginSignupPanel.add(forgotUsernameButton);
 	
 	}
 	
@@ -84,7 +90,43 @@ public class UserAccountGUIPanel extends JPanel
 		{
 			
 			//if user clicks on the login button, open a new dialogPanel
-			
+			if(event.getSource() == forgotUsernameButton)
+			{
+				JTextField emailField = new JTextField(1);
+				JTextField securityField = new JTextField(5);
+				JPanel dialogPanel = new JPanel();
+				dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
+				dialogPanel.add(new JLabel("Enter your email: "));
+				dialogPanel.add(emailField);
+				dialogPanel.add(new JLabel("Enter your security question: "));
+				dialogPanel.add(securityField);
+				
+				int result = JOptionPane.showConfirmDialog(null, dialogPanel, 
+		                 "Recover your Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);	
+				
+				if(result == JOptionPane.OK_OPTION)
+				{
+					if(accountManager.recoverUsername(emailField.getText(), securityField.getText()) != null)
+					{
+					statusPanel = new JPanel();
+					statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
+					String yourUsername = accountManager.recoverUsername(emailField.getText(), securityField.getText());
+					statusPanel.add(new JLabel("Your username is " + yourUsername));
+					JOptionPane.showConfirmDialog(null, statusPanel, 
+         					"Success!", JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
+					}
+					else
+					{
+						statusPanel = new JPanel();
+						statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
+						statusPanel.add(new JLabel("Sorry, we're unable to match your provided info with any accounts. Please try entering your information again or register for a new account!"));
+						JOptionPane.showConfirmDialog(null, statusPanel, 
+	         					"Uh oh!", JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+
+				}
 			if(event.getSource() == forgotPasswordButton)
 			{
 				JTextField usernameField = new JTextField(1);

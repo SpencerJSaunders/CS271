@@ -137,6 +137,19 @@ public class UserAccountManager {
 
             return valid;
     }
+    
+    public String recoverUsername(String email, String securityQuestion)
+    {
+    	for (UserAccount userAccount: userAccounts)
+		{
+			if(userAccount.getEmail().equals(email) && userAccount.getSecurityQuestion().equals(securityQuestion))
+			{
+				return userAccount.getUserName();
+			}
+		}
+		
+		return null;
+    }
 
     /**
      * Checks that the security question has been answered. Answer must be at least one character
