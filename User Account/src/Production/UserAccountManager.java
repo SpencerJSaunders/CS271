@@ -56,6 +56,37 @@ public class UserAccountManager {
     			return true;   
        return false;
     }
+    
+    public boolean newUserNameChecks(String newUsername, String currentUsername)
+    {
+    	if(newUsername != currentUsername && newUsername.length() > 0 && !doesUserNameExist(newUsername))
+    			{
+    				return true;
+    			}
+    	
+    	return false;
+    }
+    
+    public boolean newEmailChecks(String newEmail, String currentEmail)
+    {
+    	if(newEmail != currentEmail && validEmail(newEmail) && doesEmailExist(newEmail))
+    	{
+    		return true;
+    	}
+    	return false;
+    }
+    public boolean doesEmailExist(String email)
+    {
+    	for(UserAccount userAccount: userAccounts)
+    	{
+    		if(userAccount.getEmail().equals(email))
+    		{
+    			return false;
+    		}
+    	}
+    	
+    	return true;
+    }
 
     /**
      * Updates an accounts password
@@ -112,11 +143,21 @@ public class UserAccountManager {
     	{
     		if(userAccounts.get(i).getUserName().equals(userName))
     		{
-    			return i;
+    			return i; 
     		}
     	}
     	
     	return -1;
+    }
+    
+    public UserAccount retrieveAccount(int index)
+    {
+    	if(userAccounts.size() > 0 && index >= 0 && index < userAccounts.size())
+    	{
+    		return userAccounts.get(index);
+    	}
+    	
+    	return null;
     }
 
     /**
@@ -133,8 +174,6 @@ public class UserAccountManager {
         if(!email.contains("@")){
             valid = false;
         }
-
-
             return valid;
     }
     

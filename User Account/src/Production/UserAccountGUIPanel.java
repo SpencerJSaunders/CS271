@@ -29,6 +29,7 @@ public class UserAccountGUIPanel extends JPanel
 	private JButton signupButton;
 	private JButton forgotPasswordButton; 
 	private JButton forgotUsernameButton;
+	private JButton editAccount;
 	private JLabel usernameExists;
 	private JLabel invalidPassword;
 	private JLabel invalidEmail;
@@ -67,12 +68,17 @@ public class UserAccountGUIPanel extends JPanel
 		listener = new JButtonListener();
 		forgotUsernameButton.addActionListener(listener);
 		
+		editAccount = new JButton("Edit Account");
+		listener = new JButtonListener();
+		editAccount.addActionListener(listener);
+		
 		//add buttons to the loginSignupPanel JPanel
 		loginSignupPanel.setLayout(new BoxLayout(loginSignupPanel, BoxLayout.X_AXIS));
 		loginSignupPanel.add(loginButton);
 		loginSignupPanel.add(signupButton);
 		loginSignupPanel.add(forgotPasswordButton);
 		loginSignupPanel.add(forgotUsernameButton);
+		loginSignupPanel.add(editAccount);
 	
 	}
 	
@@ -88,6 +94,153 @@ public class UserAccountGUIPanel extends JPanel
 		@Override
 		public void actionPerformed(ActionEvent event) 
 		{
+			
+			if(event.getSource() == editAccount)
+			{
+
+				JTextField usernameField = new JTextField(1);
+				JTextField passwordField = new JTextField(5);
+				JPanel dialogPanel = new JPanel();
+				dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
+				dialogPanel.add(new JLabel("Login to modify account information: "));
+				dialogPanel.add(new JLabel("Username:"));
+				dialogPanel.add(usernameField);
+				dialogPanel.add(new JLabel("Password:"));
+				dialogPanel.add(passwordField);
+
+				int result = JOptionPane.showConfirmDialog(null, dialogPanel, 
+			                 "Login to modify account", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				
+				if(result == JOptionPane.OK_OPTION)
+				{
+					if(accountManager.doesAccountExist(usernameField.getText(), passwordField.getText()))
+					{
+						int index = accountManager.getIndexOfUser(usernameField.getText());
+						UserAccount myAccount = accountManager.retrieveAccount(index);
+						
+						JTextField modifyUsername = new JTextField(1);
+						JTextField modifyEmail = new JTextField(5);
+						JTextField modifySecurityQuestion = new JTextField(1);
+						JTextField modifyName = new JTextField(5);
+						
+						JPanel dialogPanel2 = new JPanel();
+						dialogPanel2.setLayout(new BoxLayout(dialogPanel2, BoxLayout.Y_AXIS));
+						dialogPanel2.add(new JLabel("To change any of your account information, type it into the boxes below!"));
+						dialogPanel2.add(new JLabel("Any boxes that are left blank, containing dupliacte info, or not valid info. will update"));
+						dialogPanel2.add(new JLabel("Modify Username"));
+						dialogPanel2.add(modifyUsername);
+						dialogPanel2.add(new JLabel("Modify Email"));
+						dialogPanel2.add(modifyEmail);
+						dialogPanel2.add(new JLabel("Modify Security Question"));
+						dialogPanel2.add(modifySecurityQuestion);
+						dialogPanel2.add(new JLabel("Modify Name"));
+						dialogPanel2.add(modifyName);
+						
+						JOptionPane.showConfirmDialog(null, dialogPanel2, 
+				                 "Modify Info", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						String printUsername;
+						String printSecurityQuestion;
+						String printName;
+						String printEmail;
+						int counter = 0;
+						
+						
+						
+						if(accountManager.newUserNameChecks(modifyUsername.getText(), myAccount.getUserName()))
+						{
+							myAccount.setUserName(modifyUsername.getText());
+							printUsername = "Your new username is: " + myAccount.getUserName();
+							counter = counter + 1;
+						}
+						else
+						{
+							printUsername = null;
+						}
+						
+						
+						
+						
+						
+						
+						if(accountManager.newEmailChecks(modifyEmail.getText(), myAccount.getEmail()))
+						{
+							myAccount.setEmail(modifyEmail.getText());
+							printEmail = "Your new e-mail is: " + myAccount.getEmail();
+							counter = counter + 1;
+
+						}
+						else
+						{
+							printEmail = null;
+							
+						}
+						
+						
+						
+						
+						
+						
+						
+						if(myAccount.getName() != modifyName.getText() && modifyName.getText().length() > 0)
+						{
+							myAccount.setName(modifyName.getText());
+							printName = "Your new name is: " + myAccount.getName();
+							counter = counter + 1;
+
+						}
+						else
+						{
+							printName = null;
+						}
+						
+						
+						
+						if(myAccount.getSecurityQuestion() != modifySecurityQuestion.getText() && modifySecurityQuestion.getText().length() > 0)
+						{
+							myAccount.setSecurityQuestion(modifySecurityQuestion.getText());
+							printSecurityQuestion = "Your new security question is: " + myAccount.getSecurityQuestion();
+							counter = counter + 1;
+
+						}
+						else
+						{
+							printSecurityQuestion = null;
+						}
+						
+						if(counter > 0)
+						{
+							JPanel dialogPanel3 = new JPanel();
+							dialogPanel3.setLayout(new BoxLayout(dialogPanel3, BoxLayout.Y_AXIS));
+
+							dialogPanel3.add(new JLabel(printName));
+							dialogPanel3.add(new JLabel(printEmail));
+							dialogPanel3.add(new JLabel(printSecurityQuestion));
+							dialogPanel3.add(new JLabel(printUsername));
+							
+							JOptionPane.showConfirmDialog(null, dialogPanel3, 
+					                 "Updated info.", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						}
+						else
+						{
+							JPanel dialogPanel3 = new JPanel();
+							dialogPanel3.setLayout(new BoxLayout(dialogPanel3, BoxLayout.Y_AXIS));
+							JOptionPane.showConfirmDialog(null, dialogPanel3, 
+					                 "No info updated", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						}
+						
+					}
+						else
+						{
+							JPanel dialogPanel2 = new JPanel();
+							dialogPanel2.setLayout(new BoxLayout(dialogPanel2, BoxLayout.Y_AXIS));
+							JOptionPane.showConfirmDialog(null, dialogPanel2, 
+					                 "Failed to login!", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						}
+							
+					}
+				}
+			
+				
 			
 			//if user clicks on the login button, open a new dialogPanel
 			if(event.getSource() == forgotUsernameButton)
