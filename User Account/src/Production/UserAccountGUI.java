@@ -30,10 +30,10 @@ public class UserAccountGUI
 			e.printStackTrace();
 		}
 
-		JFrame frame = new JFrame("UserAccount");
+		JFrame frame = new JFrame("Welcome");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(new UserAccountGUIPanel());
-		frame.setPreferredSize(new Dimension(600, 600));
+		frame.setPreferredSize(new Dimension(300, 200));
 		frame.pack();
 		frame.setVisible(true);
 	}
