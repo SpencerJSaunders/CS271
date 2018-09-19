@@ -1,4 +1,4 @@
-package Production;
+package production;
 
 /**
  * Class for the UserAccount object. Stores the username, password, email, and security question for the user

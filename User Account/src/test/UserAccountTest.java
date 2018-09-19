@@ -1,11 +1,10 @@
-package Test;
+package test;
 
 
-import Production.UserAccount;
+import production.UserAccount;
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 public class UserAccountTest  extends TestCase {
 
@@ -18,9 +17,7 @@ public class UserAccountTest  extends TestCase {
 					"alexesplin1@u.boisestate.edu", "Chicken");
 	}
 
-	@Test
 	public void testNewAccount(){
-		assertNotNull(userAccount);
 		assertEquals("admin", userAccount.getUserName());
 		assertEquals("123456", userAccount.getPassword());
 		assertEquals("Alex Esplin", userAccount.getName());
@@ -28,16 +25,12 @@ public class UserAccountTest  extends TestCase {
 		assertEquals("Chicken", userAccount.getSecurityQuestion());
 	}
 
-	@Test
 	public void testValidCredential() {
-		assertNotNull(userAccount);
 		assertTrue(userAccount.matchUserName("admin"));
 		assertTrue(userAccount.isValidCredential("admin", "123456"));
 	}
 
-	@Test
 	public void testChangeAccount(){
-		assertNotNull(userAccount);
 		userAccount.setUserName("coolguy");
 		assertEquals("coolguy", userAccount.getUserName());
 		userAccount.setPassword("hunter2");
@@ -53,7 +46,5 @@ public class UserAccountTest  extends TestCase {
 	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
-		userAccount = null;
-		assertNull(userAccount);
 	}
 }
