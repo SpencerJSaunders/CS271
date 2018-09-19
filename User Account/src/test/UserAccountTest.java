@@ -25,6 +25,36 @@ public class UserAccountTest  extends TestCase {
 		assertEquals("Chicken", userAccount.getSecurityQuestion());
 	}
 
+	public void testSetUserName(){
+	    assertTrue(userAccount.getUserName()=="admin");
+	    userAccount.setUserName("user");
+	    assertTrue(userAccount.getUserName()=="user");
+    }
+
+	public void testSetPassword(){
+	    assertTrue(userAccount.getPassword()=="123456");
+	    userAccount.setPassword("987654");
+	    assertTrue(userAccount.getPassword()=="987654");
+    }
+
+    public void testSetName(){
+	    assertTrue(userAccount.getName()=="Alex Esplin");
+	    userAccount.setName("Kevin Brown");
+	    assertTrue(userAccount.getName()=="Kevin Brown");
+    }
+
+    public void testSetEmail(){
+	    assertTrue(userAccount.getEmail()=="alexesplin1@u.boisestate.edu");
+	    userAccount.setEmail("newemail@email.com");
+	    assertTrue(userAccount.getEmail()=="newemail@email.com");
+    }
+
+    public void testSetSecurityQuestion(){
+	    assertTrue(userAccount.getSecurityQuestion()=="Chicken");
+	    userAccount.setSecurityQuestion("Hamburger");
+	    assertTrue(userAccount.getSecurityQuestion()=="Hamburger");
+    }
+
 	public void testValidCredential() {
 		assertTrue(userAccount.matchUserName("admin"));
 		assertTrue(userAccount.isValidCredential("admin", "123456"));
