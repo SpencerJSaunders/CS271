@@ -125,7 +125,7 @@ public class UserAccountManager {
      */
     public boolean validPassword(String password){
         boolean valid = true;
-        if (password.length() <= 0 || password.length() > 20) {
+        if (password.length() <= 5 || password.length() > 20) {
             valid = false;
         }
         return valid;
@@ -171,7 +171,7 @@ public class UserAccountManager {
         if(email.length() <= 0){
             valid = false;
         }
-        if(!email.contains("@")){
+        if(!email.contains("@") || !email.contains(".com")){
             valid = false;
         }
             return valid;

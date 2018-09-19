@@ -182,6 +182,7 @@ public class UserAccountGUIPanel extends JPanel {
 
 						statusPanel.add(new JLabel("Enter your new password: "));
 						statusPanel.add(newPassword);
+						statusPanel.add(new JLabel("Minimum Password length is 6, maximum length is 20"));
 						statusPanel.add(new JLabel("Enter your new password again for confirmation: "));
 						statusPanel.add(newPasswordConfirm);
 						int index = accountManager.getIndexOfUser(usernameField.getText());
@@ -402,6 +403,7 @@ public class UserAccountGUIPanel extends JPanel {
 				dialogPanel.add(usernameField);
 				dialogPanel.add(new JLabel("Password:"));
 				dialogPanel.add(passwordField);
+				dialogPanel.add(new JLabel("Password minimum length is 6, maximum is 20"));
 				dialogPanel.add(new JLabel("Email:"));
 				dialogPanel.add(emailField);
 				dialogPanel.add(new JLabel("Security Question: Favorite Food?"));
@@ -424,7 +426,7 @@ public class UserAccountGUIPanel extends JPanel {
 					} else if (!accountManager.validPassword(passwordField.getText())) {
 						statusPanel = new JPanel();
 						statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
-						invalidPassword = new JLabel("Invalid password: Length must be > 0 and <=20");
+						invalidPassword = new JLabel("Invalid password: Length must be > 5 and <=20");
 						statusPanel.add(invalidPassword);
 						JOptionPane.showConfirmDialog(null, statusPanel, "Error", JOptionPane.CANCEL_OPTION,
 								JOptionPane.INFORMATION_MESSAGE);

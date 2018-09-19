@@ -26,33 +26,33 @@ public class UserAccountTest  extends TestCase {
 	}
 
 	public void testSetUserName(){
-	    assertTrue(userAccount.getUserName()=="admin");
+        assertSame("admin", userAccount.getUserName());
 	    userAccount.setUserName("user");
-	    assertTrue(userAccount.getUserName()=="user");
+        assertSame("user", userAccount.getUserName());
     }
 
 	public void testSetPassword(){
-	    assertTrue(userAccount.getPassword()=="123456");
+        assertSame("123456", userAccount.getPassword());
 	    userAccount.setPassword("987654");
-	    assertTrue(userAccount.getPassword()=="987654");
+        assertSame("987654", userAccount.getPassword());
     }
 
     public void testSetName(){
-	    assertTrue(userAccount.getName()=="Alex Esplin");
+        assertSame("Alex Esplin", userAccount.getName());
 	    userAccount.setName("Kevin Brown");
-	    assertTrue(userAccount.getName()=="Kevin Brown");
+        assertSame("Kevin Brown", userAccount.getName());
     }
 
     public void testSetEmail(){
-	    assertTrue(userAccount.getEmail()=="alexesplin1@u.boisestate.edu");
+        assertSame("alexesplin1@u.boisestate.edu", userAccount.getEmail());
 	    userAccount.setEmail("newemail@email.com");
-	    assertTrue(userAccount.getEmail()=="newemail@email.com");
+        assertSame("newemail@email.com", userAccount.getEmail());
     }
 
     public void testSetSecurityQuestion(){
-	    assertTrue(userAccount.getSecurityQuestion()=="Chicken");
+        assertSame("Chicken", userAccount.getSecurityQuestion());
 	    userAccount.setSecurityQuestion("Hamburger");
-	    assertTrue(userAccount.getSecurityQuestion()=="Hamburger");
+        assertSame("Hamburger", userAccount.getSecurityQuestion());
     }
 
 	public void testValidCredential() {
